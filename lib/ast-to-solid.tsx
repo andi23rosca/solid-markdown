@@ -7,7 +7,7 @@ import type {
   Comment,
   DocType,
 } from "hast";
-import type { Info, Schema } from "property-information";
+import type { Schema } from "property-information";
 import type { NormalComponents, SolidMarkdownProps } from "./complex-types";
 import { Dynamic } from "solid-js/web";
 
@@ -104,7 +104,7 @@ export type Options = {
 import { svg, find, hastToReact } from "property-information";
 import { stringify as spaces } from "space-separated-tokens";
 import { stringify as commas } from "comma-separated-tokens";
-import * as style from "style-to-object";
+import style from "style-to-object";
 import { Component, JSX } from "solid-js";
 
 const own = {}.hasOwnProperty;
