@@ -1,6 +1,7 @@
 # SolidJS version of `react-markdown`
 
-The implementation is 90% copied from https://github.com/remarkjs/react-markdown.
+The implementation is 90% shamelessly copied from https://github.com/remarkjs/react-markdown.
+
 Changes include:
 - Replacing React specific component creation with SolidJS components
 - Porting the implementation from javascript with JSDoc types to typescript
