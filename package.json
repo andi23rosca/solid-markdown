@@ -6,15 +6,25 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": "false",
+  "homepage": "https://github.com/andi23rosca/solid-markdown",
+  "bugs": {
+    "url": "https://github.com/andi23rosca/solid-markdown/issues",
+    "email": "andi23rosca+solid-markdown@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andi23rosca/solid-markdown.git"
+  },
   "files": [
     "dist"
   ],
   "keywords": [],
-  "author": "andi23rosca@gmail.com",
+  "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
   "scripts": {
     "build": "tsc"
   },
-  "license": "ISC",
+  "license": "MIT",
+  "private": false,
   "devDependencies": {
     "typescript": "^4.5.0-dev.20211010"
   },
