@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "emitDeclarationOnly": false,
-    "declaration": true,
-    "target": "esnext",
-    "newLine": "LF",
-    "moduleResolution": "node",
+    "target": "es2015",
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+    "isolatedModules": true,
+    "outDir": "./dist",
+    "declaration": true
   },
   "include": [
-    "./lib/**.*"
-  ],
-  "exclude": ["node_modules"]
+    "lib"
+  ]
 }

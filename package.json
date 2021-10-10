@@ -1,11 +1,20 @@
 {
   "name": "solid-markdown",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": "false",
+  "version": "1.0.2",
+  "description": "Render Markdown as Solid JS components",
+  "keywords": [
+    "remark",
+    "unified",
+    "markdown",
+    "commonmark",
+    "gfm",
+    "ast",
+    "solid",
+    "solid-js",
+    "solid-js-component",
+    "component"
+  ],
+  "sideEffects": false,
   "homepage": "https://github.com/andi23rosca/solid-markdown",
   "bugs": {
     "url": "https://github.com/andi23rosca/solid-markdown/issues",
@@ -15,18 +24,33 @@
     "type": "git",
     "url": "https://github.com/andi23rosca/solid-markdown.git"
   },
+  "source": "lib/index.tsx",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
-  "keywords": [],
+  "exports": {
+    ".": {
+      "solid": "./dist/source/index.jsx",
+      "import": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "node": "./dist/cjs/index.js"
+    }
+  },
   "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
   "scripts": {
-    "build": "tsc"
+    "build": "rollup -c"
   },
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "typescript": "^4.5.0-dev.20211010"
+    "@rollup/plugin-babel": "^5.3.0",
+    "rollup": "^2.58.0",
+    "rollup-preset-solid": "^1.0.1",
+    "typescript": "^4.4.3"
   },
   "peerDependencies": {
     "solid-js": "^1.1.6"
