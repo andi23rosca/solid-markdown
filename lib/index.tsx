@@ -19,13 +19,13 @@ type LayoutOptions = {
   class: string;
 };
 
-type ReactMarkdownOptions = CoreOptions &
+type SolidMarkdownOptions = CoreOptions &
   PluginOptions &
   LayoutOptions &
   FilterOptions &
   TransformOptions;
 
-const defaults: ReactMarkdownOptions = {
+const defaults: SolidMarkdownOptions = {
   remarkPlugins: [],
   rehypePlugins: [],
   class: "",
@@ -43,8 +43,8 @@ const defaults: ReactMarkdownOptions = {
   linkTarget: "_self",
   components: {},
 };
-const SolidMarkdown: Component<Partial<ReactMarkdownOptions>> = (opts) => {
-  const options: ReactMarkdownOptions = mergeProps(defaults, opts);
+const SolidMarkdown: Component<Partial<SolidMarkdownOptions>> = (opts) => {
+  const options: SolidMarkdownOptions = mergeProps(defaults, opts);
   const processor = unified()
     .use(remarkParse)
     .use(options.remarkPlugins || [])
