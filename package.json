@@ -25,36 +25,31 @@
     "url": "https://github.com/andi23rosca/solid-markdown.git"
   },
   "source": "lib/index.tsx",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "exports": {
-    ".": {
-      "solid": "./dist/source/index.jsx",
-      "import": "./dist/esm/index.js",
-      "browser": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "node": "./dist/cjs/index.js"
-    }
-  },
   "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
   "scripts": {
-    "build": "rollup -c"
+    "build": "webpack --mode=production && tsc"
   },
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@rollup/plugin-babel": "^5.3.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
     "@types/hast": "^2.3.4",
-    "rollup": "^2.58.0",
-    "rollup-preset-solid": "^1.0.1",
-    "typescript": "^4.4.3"
+    "babel-loader": "^8.2.3",
+    "babel-preset-solid": "^1.2.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "terser-webpack-plugin": "^5.2.4",
+    "typescript": "^4.4.4",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.1"
   },
   "peerDependencies": {
-    "solid-js": "^1.1.6"
+    "solid-js": "^1.2.0"
   },
   "dependencies": {
     "comma-separated-tokens": "^2.0.2",
@@ -66,6 +61,6 @@
     "style-to-object": "^0.3.0",
     "unified": "^10.1.0",
     "unist-util-visit": "^4.1.0",
-    "vfile": "^5.1.0"
+    "vfile": "^5.2.0"
   }
 }
