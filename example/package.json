@@ -15,6 +15,7 @@
     "vite-plugin-solid": "^2.1.1"
   },
   "dependencies": {
-    "solid-js": "^1.2.0"
+    "solid-js": "^1.2.0",
+    "solid-markdown": "^1.1.0"
   }
 }

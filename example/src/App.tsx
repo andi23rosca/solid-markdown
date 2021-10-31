@@ -1,7 +1,7 @@
 import type { Component } from "solid-js";
 import remarkGfm from "remark-gfm";
 
-import Markdown from "../../lib";
+import Markdown from "solid-markdown";
 
 const markdown = `A paragraph with *emphasis* and **strong importance**.
 
