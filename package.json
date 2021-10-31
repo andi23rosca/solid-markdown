@@ -1,6 +1,6 @@
 {
   "name": "solid-markdown",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Render Markdown as Solid JS components",
   "keywords": [
     "remark",
@@ -20,6 +20,10 @@
     "url": "https://github.com/andi23rosca/solid-markdown/issues",
     "email": "andi23rosca+solid-markdown@gmail.com"
   },
+  "contributors": [
+    {"name":"Andi Rosca","url":"https://github.com/andi23rosca"},
+    {"name":"High1","url":"https://github.com/high1"}
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/andi23rosca/solid-markdown.git"
