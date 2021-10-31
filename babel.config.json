@@ -1,5 +1,6 @@
 {
   "presets": [
-    "solid"
+    "solid",
+    "@babel/typescript"
   ]
 }

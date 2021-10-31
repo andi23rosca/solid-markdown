@@ -14,7 +14,8 @@
     "jsxImportSource": "solid-js",
     "isolatedModules": true,
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
   "include": [
     "lib"

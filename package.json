@@ -32,18 +32,18 @@
   ],
   "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
   "scripts": {
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production && tsc"
   },
   "license": "MIT",
   "private": false,
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
     "@types/hast": "^2.3.4",
     "babel-loader": "^8.2.3",
     "babel-preset-solid": "^1.2.0",
     "clean-webpack-plugin": "^4.0.0",
     "terser-webpack-plugin": "^5.2.4",
-    "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
     "webpack": "^5.61.0",
     "webpack-cli": "^4.9.1"
