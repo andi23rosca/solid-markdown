@@ -21,50 +21,50 @@
     "email": "andi23rosca+solid-markdown@gmail.com"
   },
   "contributors": [
-    {"name":"Andi Rosca","url":"https://github.com/andi23rosca"},
-    {"name":"High1","url":"https://github.com/high1"}
+    {
+      "name": "Andi Rosca",
+      "url": "https://github.com/andi23rosca"
+    },
+    {
+      "name": "High1",
+      "url": "https://github.com/high1"
+    }
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/andi23rosca/solid-markdown.git"
   },
   "source": "lib/index.tsx",
-  "main": "dist/index.js",
+  "main": "dist/index.jsx",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
   "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
   "scripts": {
-    "build": "webpack --mode=production && tsc"
+    "build": "esbuild lib/index.tsx --bundle --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc"
   },
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-typescript": "^7.16.0",
     "@types/hast": "^2.3.4",
-    "babel-loader": "^8.2.3",
-    "babel-preset-solid": "^1.2.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "terser-webpack-plugin": "^5.2.4",
-    "typescript": "^4.4.4",
-    "webpack": "^5.61.0",
-    "webpack-cli": "^4.9.1"
+    "esbuild": "^0.14.27",
+    "typescript": "^4.6.2"
   },
   "peerDependencies": {
     "solid-js": "^1.2.0"
   },
   "dependencies": {
     "comma-separated-tokens": "^2.0.2",
-    "property-information": "^6.0.1",
-    "remark-gfm": "^3.0.0",
-    "remark-parse": "^10.0.0",
-    "remark-rehype": "^10.0.0",
+    "property-information": "^6.1.1",
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
     "space-separated-tokens": "^2.0.1",
     "style-to-object": "^0.3.0",
-    "unified": "^10.1.0",
+    "unified": "^10.1.2",
     "unist-util-visit": "^4.1.0",
-    "vfile": "^5.2.0"
+    "vfile": "^5.3.2"
   }
 }
