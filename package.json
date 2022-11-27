@@ -1,72 +1,72 @@
 {
-    "name": "solid-markdown",
-    "version": "1.2.1",
-    "description": "Render Markdown as Solid JS components",
-    "keywords": [
-        "remark",
-        "unified",
-        "markdown",
-        "commonmark",
-        "gfm",
-        "ast",
-        "solid",
-        "solid-js",
-        "solid-js-component",
-        "component"
-    ],
-    "sideEffects": false,
-    "homepage": "https://github.com/andi23rosca/solid-markdown",
-    "bugs": {
-        "url": "https://github.com/andi23rosca/solid-markdown/issues",
-        "email": "andi23rosca+solid-markdown@gmail.com"
+  "name": "solid-markdown",
+  "version": "1.2.0",
+  "description": "Render Markdown as Solid JS components",
+  "keywords": [
+    "remark",
+    "unified",
+    "markdown",
+    "commonmark",
+    "gfm",
+    "ast",
+    "solid",
+    "solid-js",
+    "solid-js-component",
+    "component"
+  ],
+  "sideEffects": false,
+  "homepage": "https://github.com/andi23rosca/solid-markdown",
+  "bugs": {
+    "url": "https://github.com/andi23rosca/solid-markdown/issues",
+    "email": "andi23rosca+solid-markdown@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Andi Rosca",
+      "url": "https://github.com/andi23rosca"
     },
-    "contributors": [
-        {
-            "name": "Andi Rosca",
-            "url": "https://github.com/andi23rosca"
-        },
-        {
-            "name": "High1",
-            "url": "https://github.com/high1"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/andi23rosca/solid-markdown.git"
-    },
-    "source": "lib/index.tsx",
-    "main": "dist/index.jsx",
-    "browser": "dist/index.browser.jsx",
-    "types": "dist/index.d.ts",
-    "type": "module",
-    "files": [
-        "dist"
-    ],
-    "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
-    "scripts": {
-        "build": "esbuild lib/index.tsx --bundle --outfile=dist/index.browser.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
-        "build-node": "esbuild lib/index.tsx --bundle --platform=node --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc"
-    },
-    "license": "MIT",
-    "private": false,
-    "devDependencies": {
-        "@types/hast": "^2.3.4",
-        "esbuild": "^0.14.27",
-        "typescript": "^4.6.2"
-    },
-    "peerDependencies": {
-        "solid-js": "^1.2.0"
-    },
-    "dependencies": {
-        "comma-separated-tokens": "^2.0.2",
-        "property-information": "^6.1.1",
-        "remark-gfm": "^3.0.1",
-        "remark-parse": "^10.0.1",
-        "remark-rehype": "^10.1.0",
-        "space-separated-tokens": "^2.0.1",
-        "style-to-object": "^0.3.0",
-        "unified": "^10.1.2",
-        "unist-util-visit": "^4.1.0",
-        "vfile": "^5.3.2"
+    {
+      "name": "High1",
+      "url": "https://github.com/high1"
     }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andi23rosca/solid-markdown.git"
+  },
+  "source": "lib/index.tsx",
+  "main": "dist/index.jsx",
+  "browser": "dist/index.browser.jsx",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
+  "scripts": {
+    "build": "esbuild lib/index.tsx --bundle --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
+    "build-node": "esbuild lib/index.tsx --bundle --platform=node --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc"
+  },
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/hast": "^2.3.4",
+    "esbuild": "^0.14.27",
+    "typescript": "^4.6.2"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.2.0"
+  },
+  "dependencies": {
+    "comma-separated-tokens": "^2.0.2",
+    "property-information": "^6.1.1",
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "space-separated-tokens": "^2.0.1",
+    "style-to-object": "^0.3.0",
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.0",
+    "vfile": "^5.3.2"
+  }
 }
