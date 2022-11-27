@@ -44,7 +44,7 @@
   ],
   "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
   "scripts": {
-    "build": "esbuild lib/index.tsx --bundle --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
+    "build": "esbuild lib/index.tsx --bundle --outfile=dist/index.browser.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
     "build-node": "esbuild lib/index.tsx --bundle --platform=node --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc"
   },
   "license": "MIT",
