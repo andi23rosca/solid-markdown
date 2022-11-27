@@ -36,6 +36,7 @@
     },
     "source": "lib/index.tsx",
     "main": "dist/index.jsx",
+    "browser": "dist/index.browser.jsx",
     "types": "dist/index.d.ts",
     "type": "module",
     "files": [
