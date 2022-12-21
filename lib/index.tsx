@@ -1,6 +1,6 @@
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import { Component, createComponent, JSX, mergeProps } from "solid-js";
+import { children, Component, createMemo, mergeProps } from "solid-js";
 import { html } from "property-information";
 import { PluggableList, unified } from "unified";
 import { VFile } from "vfile";
@@ -43,34 +43,41 @@ const defaults: SolidMarkdownOptions = {
   linkTarget: "_self",
   components: {},
 };
+
 const SolidMarkdown: Component<Partial<SolidMarkdownOptions>> = (opts) => {
   const options: SolidMarkdownOptions = mergeProps(defaults, opts);
-  const processor = unified()
-    .use(remarkParse)
-    .use(options.remarkPlugins || [])
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(options.rehypePlugins || [])
-    .use(rehypeFilter, options);
+  const c = children(() => options.children);
 
-  const file = new VFile();
+  const hastNode = createMemo(() => {
+    const processor = unified()
+      .use(remarkParse)
+      .use(options.remarkPlugins || [])
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(options.rehypePlugins || [])
+      .use(rehypeFilter, options);
 
-  if (typeof options.children === "string") {
-    file.value = options.children;
-  } else if (options.children !== undefined && options.children !== null) {
-    console.warn(
-      `[solid-markdown] Warning: please pass a string as \`children\` (not: \`${options.children}\`)`
-    );
-  }
+    const file = new VFile();
 
-  const hastNode = processor.runSync(processor.parse(file), file);
+    if (typeof c() === "string") {
+      file.value = c() as string;
+    } else if (c() !== undefined && options.children !== null) {
+      console.warn(
+        `[solid-markdown] Warning: please pass a string as \`children\` (not: \`${c()}\`)`
+      );
+    }
 
-  if (hastNode.type !== "root") {
-    throw new TypeError("Expected a `root` node");
-  }
+    const hastNode = processor.runSync(processor.parse(file), file);
+
+    if (hastNode.type !== "root") {
+      throw new TypeError("Expected a `root` node");
+    }
+
+    return hastNode;
+  });
 
   return (
     <div class={options.class}>
-      {childrenToSolid({ options, schema: html, listDepth: 0 }, hastNode)}
+      {childrenToSolid({ options, schema: html, listDepth: 0 }, hastNode())}
     </div>
   );
 };
