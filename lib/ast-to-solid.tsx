@@ -1,124 +1,124 @@
-import type { Position } from "unist";
+import type { Position } from 'unist'
 import type {
   Element,
   ElementContent,
   Root,
   Text,
   Comment,
-  DocType,
-} from "hast";
-import type { Schema } from "property-information";
-import type { NormalComponents, SolidMarkdownProps } from "./complex-types";
-import { Dynamic } from "solid-js/web";
+  DocType
+} from 'hast'
+import type { Schema } from 'property-information'
+import type { NormalComponents, SolidMarkdownProps } from './complex-types'
+import { Dynamic } from 'solid-js/web'
 
 type Raw = {
-  type: "raw";
-  value: string;
-};
+  type: 'raw'
+  value: string
+}
 type Context = {
-  options: Options;
-  schema: Schema;
-  listDepth: number;
-};
+  options: Options
+  schema: Schema
+  listDepth: number
+}
 type TransformLink = (
   href: string,
   children: ElementContent[],
   title?: string
-) => string;
-type TransformImage = (src: string, alt: string, title?: string) => string;
+) => string
+type TransformImage = (src: string, alt: string, title?: string) => string
 type TransformLinkTargetType =
-  | "_self"
-  | "_blank"
-  | "_parent"
-  | "_top"
-  | (string & {});
+  | '_self'
+  | '_blank'
+  | '_parent'
+  | '_top'
+  | (string & {})
 
 type TransformLinkTarget = (
   href: string,
   children: ElementContent[],
   title?: string
-) => TransformLinkTargetType | undefined;
+) => TransformLinkTargetType | undefined
 
-type SolidMarkdownNames = keyof JSX.IntrinsicElements;
+type SolidMarkdownNames = keyof JSX.IntrinsicElements
 
 type CodeComponent = Component<
-  JSX.IntrinsicElements["code"] & SolidMarkdownProps & { inline?: boolean }
->;
+  JSX.IntrinsicElements['code'] & SolidMarkdownProps & { inline?: boolean }
+>
 type HeadingComponent = Component<
-  JSX.IntrinsicElements["h1"] & SolidMarkdownProps & { level: number }
->;
+  JSX.IntrinsicElements['h1'] & SolidMarkdownProps & { level: number }
+>
 type LiComponent = Component<
-  JSX.IntrinsicElements["li"] &
+  JSX.IntrinsicElements['li'] &
     SolidMarkdownProps & {
-      checked: boolean | null;
-      index: number;
-      ordered: boolean;
+      checked: boolean | null
+      index: number
+      ordered: boolean
     }
->;
+>
 type OrderedListComponent = Component<
-  JSX.IntrinsicElements["ol"] &
+  JSX.IntrinsicElements['ol'] &
     SolidMarkdownProps & { depth: number; ordered: true }
->;
+>
 type TableCellComponent = Component<
-  JSX.IntrinsicElements["table"] &
+  JSX.IntrinsicElements['table'] &
     SolidMarkdownProps & { style?: Record<string, unknown>; isHeader: boolean }
->;
+>
 type TableRowComponent = Component<
-  JSX.IntrinsicElements["tr"] & SolidMarkdownProps & { isHeader: boolean }
->;
+  JSX.IntrinsicElements['tr'] & SolidMarkdownProps & { isHeader: boolean }
+>
 type UnorderedListComponent = Component<
-  JSX.IntrinsicElements["ul"] &
+  JSX.IntrinsicElements['ul'] &
     SolidMarkdownProps & { depth: number; ordered: false }
->;
+>
 
 type SpecialComponents = {
-  code: CodeComponent | SolidMarkdownNames;
-  h1: HeadingComponent | SolidMarkdownNames;
-  h2: HeadingComponent | SolidMarkdownNames;
-  h3: HeadingComponent | SolidMarkdownNames;
-  h4: HeadingComponent | SolidMarkdownNames;
-  h5: HeadingComponent | SolidMarkdownNames;
-  h6: HeadingComponent | SolidMarkdownNames;
-  li: LiComponent | SolidMarkdownNames;
-  ol: OrderedListComponent | SolidMarkdownNames;
-  td: TableCellComponent | SolidMarkdownNames;
-  th: TableCellComponent | SolidMarkdownNames;
-  tr: TableRowComponent | SolidMarkdownNames;
-  ul: UnorderedListComponent | SolidMarkdownNames;
-};
+  code: CodeComponent | SolidMarkdownNames
+  h1: HeadingComponent | SolidMarkdownNames
+  h2: HeadingComponent | SolidMarkdownNames
+  h3: HeadingComponent | SolidMarkdownNames
+  h4: HeadingComponent | SolidMarkdownNames
+  h5: HeadingComponent | SolidMarkdownNames
+  h6: HeadingComponent | SolidMarkdownNames
+  li: LiComponent | SolidMarkdownNames
+  ol: OrderedListComponent | SolidMarkdownNames
+  td: TableCellComponent | SolidMarkdownNames
+  th: TableCellComponent | SolidMarkdownNames
+  tr: TableRowComponent | SolidMarkdownNames
+  ul: UnorderedListComponent | SolidMarkdownNames
+}
 
 type Components = Partial<Omit<NormalComponents, keyof SpecialComponents>> &
-  Partial<SpecialComponents>;
+  Partial<SpecialComponents>
 
 export type Options = {
-  sourcePos: boolean;
-  rawSourcePos: boolean;
-  skipHtml: boolean;
-  includeElementIndex: boolean;
-  transformLinkUri: null | false | TransformLink;
-  transformImageUri?: TransformImage;
-  linkTarget: TransformLinkTargetType | TransformLinkTarget;
-  components: Components;
-};
+  sourcePos: boolean
+  rawSourcePos: boolean
+  skipHtml: boolean
+  includeElementIndex: boolean
+  transformLinkUri: null | false | TransformLink
+  transformImageUri?: TransformImage
+  linkTarget: TransformLinkTargetType | TransformLinkTarget
+  components: Components
+}
 
-import { svg, find, hastToReact } from "property-information";
-import { stringify as spaces } from "space-separated-tokens";
-import { stringify as commas } from "comma-separated-tokens";
-import style from "style-to-object";
-import { Component, JSX } from "solid-js";
+import { svg, find, hastToReact } from 'property-information'
+import { stringify as spaces } from 'space-separated-tokens'
+import { stringify as commas } from 'comma-separated-tokens'
+import style from 'style-to-object'
+import { Component, JSX } from 'solid-js'
 
-const own = {}.hasOwnProperty;
+const own = {}.hasOwnProperty
 
 // The table-related elements that must not contain whitespace text according
 // to React.
-const tableElements = new Set(["table", "thead", "tbody", "tfoot", "tr"]);
+const tableElements = new Set(['table', 'thead', 'tbody', 'tfoot', 'tr'])
 
 export function childrenToSolid(
   context: Context,
   node: Element | Root
 ): JSX.Element[] {
-  const children: JSX.Element[] = [];
-  let childIndex = -1;
+  const children: JSX.Element[] = []
+  let childIndex = -1
 
   // let child: Comment | DocType | Element | Raw | Text;
 
@@ -128,27 +128,27 @@ export function childrenToSolid(
       | DocType
       | Element
       | Raw
-      | Text;
+      | Text
 
-    if (child.type === "element") {
-      children.push(toSolid(context, child, childIndex, node));
-    } else if (child.type === "text") {
+    if (child.type === 'element') {
+      children.push(toSolid(context, child, childIndex, node))
+    } else if (child.type === 'text') {
       // React does not permit whitespace text elements as children of table:
       // cf. https://github.com/remarkjs/react-markdown/issues/576
       if (
-        node.type !== "element" ||
+        node.type !== 'element' ||
         !tableElements.has(node.tagName) ||
-        child.value !== "\n"
+        child.value !== '\n'
       ) {
-        children.push(child.value);
+        children.push(child.value)
       }
-    } else if (child.type === "raw" && !context.options.skipHtml) {
+    } else if (child.type === 'raw' && !context.options.skipHtml) {
       // Default behavior is to show (encoded) HTML.
-      children.push(child.value);
+      children.push(child.value)
     }
   }
 
-  return children;
+  return children
 }
 
 function toSolid(
@@ -157,51 +157,51 @@ function toSolid(
   index: number,
   parent: Element | Root
 ): JSX.Element {
-  const options = context.options;
-  const parentSchema = context.schema;
-  const name = node.tagName as SolidMarkdownNames;
+  const options = context.options
+  const parentSchema = context.schema
+  const name = node.tagName as SolidMarkdownNames
 
-  const properties: Record<string, unknown> = {};
-  let schema = parentSchema;
-  let property: string;
+  const properties: Record<string, unknown> = {}
+  let schema = parentSchema
+  let property: string
 
-  if (parentSchema.space === "html" && name === "svg") {
-    schema = svg;
-    context.schema = schema;
+  if (parentSchema.space === 'html' && name === 'svg') {
+    schema = svg
+    context.schema = schema
   }
 
   if (node.properties) {
     for (property in node.properties) {
       if (own.call(node.properties, property)) {
-        addProperty(properties, property, node.properties[property], context);
+        addProperty(properties, property, node.properties[property], context)
       }
     }
   }
 
-  if (name === "ol" || name === "ul") {
-    context.listDepth++;
+  if (name === 'ol' || name === 'ul') {
+    context.listDepth++
   }
 
-  const children = childrenToSolid(context, node);
+  const children = childrenToSolid(context, node)
 
-  if (name === "ol" || name === "ul") {
-    context.listDepth--;
+  if (name === 'ol' || name === 'ul') {
+    context.listDepth--
   }
 
   // Restore parent schema.
-  context.schema = parentSchema;
+  context.schema = parentSchema
 
   // Nodes created by plugins do not have positional info, in which case we use
   // an object that matches the position interface.
   const position = node.position || {
     start: { line: null, column: null, offset: null },
-    end: { line: null, column: null, offset: null },
-  };
+    end: { line: null, column: null, offset: null }
+  }
   const component =
     options.components && own.call(options.components, name)
       ? options.components[name]
-      : name;
-  const basic = typeof component === "string"; //|| component === React.Fragment;
+      : name
+  const basic = typeof component === 'string' //|| component === React.Fragment;
 
   // TODO Reimplement is Valid
   // if (!ReactIs.isValidElementType(component)) {
@@ -214,140 +214,140 @@ function toSolid(
     name,
     position.start.line,
     position.start.column,
-    index,
-  ].join("-");
+    index
+  ].join('-')
 
-  if (name === "a" && options.linkTarget) {
+  if (name === 'a' && options.linkTarget) {
     properties.target =
-      typeof options.linkTarget === "function"
+      typeof options.linkTarget === 'function'
         ? options.linkTarget(
-            String(properties.href || ""),
+            String(properties.href || ''),
             node.children,
-            typeof properties.title === "string" ? properties.title : undefined
+            typeof properties.title === 'string' ? properties.title : undefined
           )
-        : options.linkTarget;
+        : options.linkTarget
   }
 
-  if (name === "a" && options.transformLinkUri) {
+  if (name === 'a' && options.transformLinkUri) {
     properties.href = options.transformLinkUri(
-      String(properties.href || ""),
+      String(properties.href || ''),
       node.children,
-      typeof properties.title === "string" ? properties.title : undefined
-    );
+      typeof properties.title === 'string' ? properties.title : undefined
+    )
   }
 
   if (
     !basic &&
-    name === "code" &&
-    parent.type === "element" &&
-    parent.tagName !== "pre"
+    name === 'code' &&
+    parent.type === 'element' &&
+    parent.tagName !== 'pre'
   ) {
-    properties.inline = true;
+    properties.inline = true
   }
 
   if (
     !basic &&
-    (name === "h1" ||
-      name === "h2" ||
-      name === "h3" ||
-      name === "h4" ||
-      name === "h5" ||
-      name === "h6")
+    (name === 'h1' ||
+      name === 'h2' ||
+      name === 'h3' ||
+      name === 'h4' ||
+      name === 'h5' ||
+      name === 'h6')
   ) {
-    properties.level = Number.parseInt(name.charAt(1), 10);
+    properties.level = Number.parseInt(name.charAt(1), 10)
   }
 
-  if (name === "img" && options.transformImageUri) {
+  if (name === 'img' && options.transformImageUri) {
     properties.src = options.transformImageUri(
-      String(properties.src || ""),
-      String(properties.alt || ""),
-      typeof properties.title === "string" ? properties.title : undefined
-    );
+      String(properties.src || ''),
+      String(properties.alt || ''),
+      typeof properties.title === 'string' ? properties.title : undefined
+    )
   }
 
-  if (!basic && name === "li" && parent.type === "element") {
-    const input = getInputElement(node);
+  if (!basic && name === 'li' && parent.type === 'element') {
+    const input = getInputElement(node)
     properties.checked =
-      input && input.properties ? Boolean(input.properties.checked) : null;
-    properties.index = getElementsBeforeCount(parent, node);
-    properties.ordered = parent.tagName === "ol";
+      input && input.properties ? Boolean(input.properties.checked) : null
+    properties.index = getElementsBeforeCount(parent, node)
+    properties.ordered = parent.tagName === 'ol'
   }
 
-  if (!basic && (name === "ol" || name === "ul")) {
-    properties.ordered = name === "ol";
-    properties.depth = context.listDepth;
+  if (!basic && (name === 'ol' || name === 'ul')) {
+    properties.ordered = name === 'ol'
+    properties.depth = context.listDepth
   }
 
-  if (name === "td" || name === "th") {
+  if (name === 'td' || name === 'th') {
     if (properties.align) {
-      if (!properties.style) properties.style = {};
+      if (!properties.style) properties.style = {}
       // @ts-expect-error assume `style` is an object
-      properties.style.textAlign = properties.align;
-      delete properties.align;
+      properties.style.textAlign = properties.align
+      delete properties.align
     }
 
     if (!basic) {
-      properties.isHeader = name === "th";
+      properties.isHeader = name === 'th'
     }
   }
 
-  if (!basic && name === "tr" && parent.type === "element") {
-    properties.isHeader = Boolean(parent.tagName === "thead");
+  if (!basic && name === 'tr' && parent.type === 'element') {
+    properties.isHeader = Boolean(parent.tagName === 'thead')
   }
 
   // If `sourcePos` is given, pass source information (line/column info from markdown source).
   if (options.sourcePos) {
-    properties["data-sourcepos"] = flattenPosition(position);
+    properties['data-sourcepos'] = flattenPosition(position)
   }
 
   if (!basic && options.rawSourcePos) {
-    properties.sourcePosition = node.position;
+    properties.sourcePosition = node.position
   }
 
   // If `includeElementIndex` is given, pass node index info to components.
   if (!basic && options.includeElementIndex) {
-    properties.index = getElementsBeforeCount(parent, node);
-    properties.siblingCount = getElementsBeforeCount(parent);
+    properties.index = getElementsBeforeCount(parent, node)
+    properties.siblingCount = getElementsBeforeCount(parent)
   }
 
   if (!basic) {
-    properties.node = node;
+    properties.node = node
   }
 
   return (
     <Dynamic component={component as any} {...properties}>
       {children}
     </Dynamic>
-  );
+  )
 }
 
 function getInputElement(node: Element | Root): Element | null {
-  let index = -1;
+  let index = -1
 
   while (++index < node.children.length) {
-    const child = node.children[index];
+    const child = node.children[index]
 
-    if (child.type === "element" && child.tagName === "input") {
-      return child;
+    if (child.type === 'element' && child.tagName === 'input') {
+      return child
     }
   }
 
-  return null;
+  return null
 }
 
 function getElementsBeforeCount(
   parent: Element | Root,
   node?: Element
 ): number {
-  let index = -1;
-  let count = 0;
+  let index = -1
+  let count = 0
 
   while (++index < parent.children.length) {
-    if (parent.children[index] === node) break;
-    if (parent.children[index].type === "element") count++;
+    if (parent.children[index] === node) break
+    if (parent.children[index].type === 'element') count++
   }
 
-  return count;
+  return count
 }
 
 function addProperty(
@@ -356,23 +356,23 @@ function addProperty(
   value: unknown,
   ctx: Context
 ) {
-  const info = find(ctx.schema, prop);
-  let result = value;
+  const info = find(ctx.schema, prop)
+  let result = value
 
   // Ignore nullish and `NaN` values.
   // eslint-disable-next-line no-self-compare
   if (result === null || result === undefined || result !== result) {
-    return;
+    return
   }
 
   // Accept `array`.
   // Most props are space-separated.
   if (Array.isArray(result)) {
-    result = info.commaSeparated ? commas(result) : spaces(result);
+    result = info.commaSeparated ? commas(result) : spaces(result)
   }
 
-  if (info.property === "style" && typeof result === "string") {
-    result = parseStyle(result);
+  if (info.property === 'style' && typeof result === 'string') {
+    result = parseStyle(result)
   }
 
   if (info.space && info.property) {
@@ -380,50 +380,50 @@ function addProperty(
       own.call(hastToReact, info.property)
         ? (hastToReact as any)[info.property]
         : info.property
-    ] = result;
+    ] = result
   } else if (info.attribute) {
-    props[info.attribute] = result;
+    props[info.attribute] = result
   }
 }
 
 function parseStyle(value: string): Record<string, string> {
-  const result: Record<string, string> = {};
+  const result: Record<string, string> = {}
 
   try {
-    style(value, iterator);
+    style(value, iterator)
   } catch {
     // Silent.
   }
 
-  return result;
+  return result
 
   function iterator(name: string, v: string) {
-    const k = name.slice(0, 4) === "-ms-" ? `ms-${name.slice(4)}` : name;
-    result[k.replace(/-([a-z])/g, styleReplacer)] = v;
+    const k = name.slice(0, 4) === '-ms-' ? `ms-${name.slice(4)}` : name
+    result[k.replace(/-([a-z])/g, styleReplacer)] = v
   }
 }
 
 function styleReplacer(_: unknown, $1: string) {
-  return $1.toUpperCase();
+  return $1.toUpperCase()
 }
 
 function flattenPosition(
   pos:
     | Position
     | {
-        start: { line: null; column: null; offset: null };
-        end: { line: null; column: null; offset: null };
+        start: { line: null; column: null; offset: null }
+        end: { line: null; column: null; offset: null }
       }
 ): string {
   return [
     pos.start.line,
-    ":",
+    ':',
     pos.start.column,
-    "-",
+    '-',
     pos.end.line,
-    ":",
-    pos.end.column,
+    ':',
+    pos.end.column
   ]
     .map((d) => String(d))
-    .join("");
+    .join('')
 }
