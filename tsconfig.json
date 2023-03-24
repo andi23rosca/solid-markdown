@@ -17,7 +17,5 @@
     "declaration": true,
     "emitDeclarationOnly": true
   },
-  "include": [
-    "lib"
-  ]
+  "include": ["lib"]
 }
