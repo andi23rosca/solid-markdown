@@ -1,6 +1,6 @@
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
-import { Component, createComponent, JSX, mergeProps } from 'solid-js'
+import { Component, mergeProps } from 'solid-js'
 import { html } from 'property-information'
 import { PluggableList, unified } from 'unified'
 import { VFile } from 'vfile'
