@@ -51,7 +51,7 @@
     "build": "run-s build:*",
     "build:client": "esbuild lib/index.tsx --bundle --outfile=dist/index.browser.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
     "build:server": "esbuild lib/index.tsx --bundle --platform=node --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
-    "prepare": "is-ci || husky install"
+    "prepare": "husky install"
   },
   "commitlint": {
     "extends": [
@@ -98,7 +98,6 @@
     "eslint-plugin-markdown": "^3.0.0",
     "eslint-plugin-solid": "^0.12.0",
     "husky": "^8.0.3",
-    "is-ci": "^3.0.1",
     "lint-staged": "^13.2.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.7",
