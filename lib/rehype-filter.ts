@@ -6,7 +6,7 @@ import type { Plugin } from "unified";
 type AllowElement = (
   element: HElement,
   index: number,
-  parent: HElement | HRoot,
+  parent: HElement | HRoot
 ) => boolean | undefined;
 
 export type Options = {
@@ -19,7 +19,7 @@ export type Options = {
 const rehypeFilter: Plugin<[Options], HRoot> = (options: Options) => {
   if (options.allowedElements && options.disallowedElements) {
     throw new TypeError(
-      "Only one of `allowedElements` and `disallowedElements` should be defined",
+      "Only one of `allowedElements` and `disallowedElements` should be defined"
     );
   }
 
