@@ -41,7 +41,7 @@ const defaults: SolidMarkdownOptions = {
   transformLinkUri: null,
   transformImageUri: undefined,
   linkTarget: "_self",
-  components: {}
+  components: {},
 };
 const SolidMarkdown: Component<Partial<SolidMarkdownOptions>> = (opts) => {
   const options: SolidMarkdownOptions = mergeProps(defaults, opts);
@@ -58,7 +58,7 @@ const SolidMarkdown: Component<Partial<SolidMarkdownOptions>> = (opts) => {
     file.value = options.children;
   } else if (options.children !== undefined && options.children !== null) {
     console.warn(
-      `[solid-markdown] Warning: please pass a string as \`children\` (not: \`${options.children}\`)`
+      `[solid-markdown] Warning: please pass a string as \`children\` (not: \`${options.children}\`)`,
     );
   }
 
