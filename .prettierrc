@@ -2,5 +2,5 @@
   "singleQuote": false,
   "semi": true,
   "trailingComma": "es5",
-  "proseWrap": "never"
+  "proseWrap": "preserve"
 }
