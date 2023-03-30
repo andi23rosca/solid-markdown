@@ -1,7 +1,6 @@
 # SolidJS version of `react-markdown`
 
-The implementation is 90% shamelessly copied from
-https://github.com/remarkjs/react-markdown.
+The implementation is 90% shamelessly copied from https://github.com/remarkjs/react-markdown.
 
 Changes include:
 
