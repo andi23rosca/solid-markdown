@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import type { Position } from "unist";
 import type {
   Element,

@@ -1,6 +1,10 @@
 import { Component, JSX } from "solid-js";
-import type { Position } from "unist";
 import type { Element } from "hast";
+import type { Position } from "unist";
+
+/**
+ * @typedef {import('unist').Position} Position
+ */
 
 /* File for types which are not handled correctly in JSDoc mode */
 
@@ -10,7 +14,7 @@ export interface SolidMarkdownProps {
   /**
    * Passed when `options.rawSourcePos` is given
    */
-  sourcePosition?: Position;
+  sourcePosition: Position;
   /**
    * Passed when `options.includeElementIndex` is given
    */
