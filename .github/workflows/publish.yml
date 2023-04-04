@@ -10,10 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: "18"
+          cache: "pnpm"
+      - run: pnpm i
+      - run: pnpm run lint
+      - run: pnpm build
+
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          HUSKY: 0
