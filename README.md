@@ -1,7 +1,6 @@
 # SolidJS version of `react-markdown`
 
-The implementation is 90% shamelessly copied from
-https://github.com/remarkjs/react-markdown.
+The implementation is 90% shamelessly copied from https://github.com/remarkjs/react-markdown.
 
 Changes include:
 
@@ -19,7 +18,7 @@ npm install solid-markdown
 ## Usage
 
 ```jsx
-import SolidMarkdown from 'solid-markdown'
+import SolidMarkdown from "solid-markdown";
 
 const markdown = `
 # This is a title
@@ -27,10 +26,10 @@ const markdown = `
 - here's
 - a
 - list
-`
+`;
 const App = () => {
-  return <SolidMarkdown children={markdown} />
-}
+  return <SolidMarkdown children={markdown} />;
+};
 ```
 
 ## TODO

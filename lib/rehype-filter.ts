@@ -1,26 +1,26 @@
 /* eslint-disable no-unused-vars */
-import { visit } from 'unist-util-visit'
-import type { Element as HElement, Root as HRoot } from 'hast'
-import type { Plugin } from 'unified'
+import { visit } from "unist-util-visit";
+import type { Element as HElement, Root as HRoot } from "hast";
+import type { Plugin } from "unified";
 
 type AllowElement = (
   element: HElement,
   index: number,
   parent: HElement | HRoot
-) => boolean | undefined
+) => boolean | undefined;
 
 export type Options = {
-  allowedElements?: string[]
-  disallowedElements?: string[]
-  allowElement?: AllowElement
-  unwrapDisallowed: boolean
-}
+  allowedElements?: string[];
+  disallowedElements?: string[];
+  allowElement?: AllowElement;
+  unwrapDisallowed: boolean;
+};
 
 const rehypeFilter: Plugin<[Options], HRoot> = (options: Options) => {
   if (options.allowedElements && options.disallowedElements) {
     throw new TypeError(
-      'Only one of `allowedElements` and `disallowedElements` should be defined'
-    )
+      "Only one of `allowedElements` and `disallowedElements` should be defined"
+    );
   }
 
   if (
@@ -29,35 +29,35 @@ const rehypeFilter: Plugin<[Options], HRoot> = (options: Options) => {
     options.allowElement
   ) {
     return (tree) => {
-      visit(tree, 'element', (node, index, parent_) => {
-        const parent = parent_
-        if (parent === null) return
+      visit(tree, "element", (node, index, parent_) => {
+        const parent = parent_;
+        if (parent === null) return;
 
-        let remove: boolean | undefined
+        let remove: boolean | undefined;
 
         if (options.allowedElements) {
-          remove = !options.allowedElements.includes(node.tagName)
+          remove = !options.allowedElements.includes(node.tagName);
         } else if (options.disallowedElements) {
-          remove = options.disallowedElements.includes(node.tagName)
+          remove = options.disallowedElements.includes(node.tagName);
         }
 
-        if (!remove && options.allowElement && typeof index === 'number') {
-          remove = !options.allowElement(node, index, parent)
+        if (!remove && options.allowElement && typeof index === "number") {
+          remove = !options.allowElement(node, index, parent);
         }
 
-        if (remove && typeof index === 'number') {
+        if (remove && typeof index === "number") {
           if (options.unwrapDisallowed && node.children) {
-            parent.children.splice(index, 1, ...node.children)
+            parent.children.splice(index, 1, ...node.children);
           } else {
-            parent.children.splice(index, 1)
+            parent.children.splice(index, 1);
           }
 
-          return index
+          return index;
         }
 
-        return undefined
-      })
-    }
+        return undefined;
+      });
+    };
   }
-}
-export default rehypeFilter
+};
+export default rehypeFilter;

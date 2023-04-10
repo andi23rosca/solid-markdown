@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zentered/solid-markdown.git"
+    "url": "https://github.com/andi23rosca/solid-markdown.git"
   },
   "license": "MIT",
   "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
@@ -51,7 +51,7 @@
     "build": "run-s build:*",
     "build:client": "esbuild lib/index.tsx --bundle --outfile=dist/index.browser.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
     "build:server": "esbuild lib/index.tsx --bundle --platform=node --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
-    "lint": "eslint --fix . --ext .js --ext .ts --ext .tsx",
+    "lint": "eslint --fix . --ext .ts --ext .tsx",
     "prepare": "husky install"
   },
   "commitlint": {

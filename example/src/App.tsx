@@ -1,7 +1,7 @@
-import type { Component } from 'solid-js'
-import remarkGfm from 'remark-gfm'
+import type { Component } from "solid-js";
+import remarkGfm from "remark-gfm";
 
-import Markdown from 'solid-markdown'
+import Markdown from "solid-markdown";
 
 const markdown = `A paragraph with *emphasis* and **strong importance**.
 
@@ -17,12 +17,12 @@ A table:
 | :---        |    :----:   |          ---: |
 | Header      | Title       | Here's this   |
 | Paragraph   | Text        | And more      |
-`
+`;
 
 const App: Component = () => (
   <div>
     <Markdown children={markdown} remarkPlugins={[remarkGfm]} />
   </div>
-)
+);
 
-export default App
+export default App;
