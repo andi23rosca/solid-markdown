@@ -1,6 +1,6 @@
 {
-  "name": "@zentered/solid-markdown",
-  "version": "1.3.0",
+  "name": "solid-markdown",
+  "version": "1.0.0",
   "private": false,
   "description": "Render Markdown as Solid JS components",
   "keywords": [
@@ -17,7 +17,7 @@
   ],
   "homepage": "https://github.com/andi23rosca/solid-markdown",
   "bugs": {
-    "url": "https://github.com/zentered/solid-markdown/issues"
+    "url": "https://github.com/andi23rosca/solid-markdown/issues"
   },
   "repository": {
     "type": "git",
@@ -81,7 +81,7 @@
     "remark-gfm": "^3.0.1",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
-    "solid-js": "^1.6.16",
+    "solid-js": "^1.7.3",
     "space-separated-tokens": "^2.0.2",
     "style-to-object": "^0.4.1",
     "unified": "^10.1.2",
@@ -92,17 +92,17 @@
     "@commitlint/cli": "^17.5.1",
     "@commitlint/config-conventional": "^17.4.4",
     "@types/hast": "^2.3.4",
-    "@typescript-eslint/parser": "^5.57.0",
-    "esbuild": "^0.17.14",
-    "eslint": "^8.37.0",
+    "@typescript-eslint/parser": "^5.57.1",
+    "esbuild": "^0.17.16",
+    "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-solid": "^0.12.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
+    "lint-staged": "^13.2.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.7",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   },
   "peerDependencies": {
     "solid-js": "^1.2.0"
