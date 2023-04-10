@@ -19,7 +19,8 @@ jobs:
           node-version: "18"
           cache: "pnpm"
       - run: pnpm i
-      - run: pnpm run lint
+#       Disabled temporarily, no lint script yet
+#       - run: pnpm run lint
       - run: pnpm build
 
       - run: npx semantic-release
