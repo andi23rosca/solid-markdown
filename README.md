@@ -1,4 +1,10 @@
-# SolidJS version of `react-markdown`
+<p>
+  <img width="100%" src="https://assets.solidjs.com/banner?type=solid-markdown&background=tiles&project=%20" alt="solid-markdown">
+</p>
+
+# `solid-markdown`
+
+Render markdown as solid components.
 
 The implementation is 90% shamelessly copied from https://github.com/remarkjs/react-markdown.
 
@@ -10,15 +16,15 @@ Changes include:
 Please check the original repo for in-depth details on how to use.
 
 ## Installation
-
-```
+```bash
 npm install solid-markdown
 ```
+
 
 ## Usage
 
 ```jsx
-import SolidMarkdown from "solid-markdown";
+import { SolidMarkdown } from "solid-markdown";
 
 const markdown = `
 # This is a title

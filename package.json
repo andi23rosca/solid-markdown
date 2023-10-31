@@ -1,8 +1,8 @@
 {
   "name": "solid-markdown",
-  "version": "1.0.0",
-  "private": false,
-  "description": "Render Markdown as Solid JS components",
+  "version": "2.0.0",
+  "description": "Markdown renderer for solid-js",
+  "license": "MIT",
   "keywords": [
     "remark",
     "unified",
@@ -15,17 +15,7 @@
     "solid-js-component",
     "component"
   ],
-  "homepage": "https://github.com/andi23rosca/solid-markdown",
-  "bugs": {
-    "url": "https://github.com/andi23rosca/solid-markdown/issues",
-    "email": "andi23rosca+solid-markdown@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/andi23rosca/solid-markdown.git"
-  },
-  "license": "MIT",
-  "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
+  "author": "Andi Rosca <andi23rosca@gmail.com>",
   "contributors": [
     {
       "name": "Andi Rosca",
@@ -40,72 +30,94 @@
       "url": "https://github.com/patrickheneise"
     }
   ],
-  "type": "module",
-  "main": "dist/index.jsx",
-  "source": "lib/index.tsx",
-  "browser": "dist/index.browser.jsx",
-  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andi23rosca/solid-markdown.git"
+  },
+  "homepage": "https://github.com/andi23rosca/solid-markdown#readme",
+  "bugs": {
+    "url": "https://github.com/andi23rosca/solid-markdown/issues"
+  },
   "files": [
     "dist"
   ],
+  "private": false,
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "browser": {},
+  "exports": {
+    "solid": {
+      "development": "./dist/dev.jsx",
+      "import": "./dist/index.jsx"
+    },
+    "development": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/dev.js"
+      }
+    },
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "typesVersions": {},
   "scripts": {
-    "build": "run-s build:*",
-    "build:client": "esbuild lib/index.tsx --bundle --outfile=dist/index.browser.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
-    "build:server": "esbuild lib/index.tsx --bundle --platform=node --outfile=dist/index.jsx --jsx=preserve --external:solid-js --format=esm && tsc",
-    "lint": "eslint --fix . --ext .ts --ext .tsx",
-    "prepare": "husky install"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx,json,md,yaml}": [
-      "prettier --write"
-    ],
-    "*.{js,ts,jsx,tsx}": [
-      "eslint --cache --fix"
-    ]
-  },
-  "release": {
-    "branches": [
-      "main"
-    ]
+    "dev": "vite serve dev",
+    "build": "tsup",
+    "test": "concurrently pnpm:test:*",
+    "test:client": "vitest",
+    "test:ssr": "pnpm run test:client --mode ssr",
+    "prepublishOnly": "pnpm build",
+    "format": "prettier --ignore-path .gitignore -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"dev/**/*.{js,ts,json,css,tsx,jsx}\"",
+    "lint": "concurrently pnpm:lint:*",
+    "lint:code": "eslint --ignore-path .gitignore --max-warnings 0 src/**/*.{js,ts,tsx,jsx}",
+    "lint:types": "tsc --noEmit",
+    "update-deps": "pnpm up -Li"
   },
   "dependencies": {
-    "@types/hast": "^2.3.4",
-    "@types/prop-types": "^15.7.5",
-    "@types/unist": "^2.0.6",
     "comma-separated-tokens": "^2.0.3",
-    "property-information": "^6.2.0",
+    "property-information": "^6.3.0",
     "remark-gfm": "^3.0.1",
-    "remark-parse": "^10.0.1",
+    "remark-parse": "^10.0.2",
     "remark-rehype": "^10.1.0",
-    "solid-js": "^1.7.3",
     "space-separated-tokens": "^2.0.2",
-    "style-to-object": "^0.4.1",
+    "style-to-object": "^0.3.0",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.2",
     "vfile": "^5.3.7"
   },
-  "devDependencies": {
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
-    "@types/hast": "^2.3.4",
-    "@typescript-eslint/parser": "^5.57.1",
-    "esbuild": "^0.17.16",
-    "eslint": "^8.38.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-json": "^3.1.0",
-    "eslint-plugin-solid": "^0.12.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.7",
-    "typescript": "^5.0.4"
-  },
   "peerDependencies": {
-    "solid-js": "^1.2.0"
+    "solid-js": "^1.6.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.3.1",
+    "@types/hast": "^2.3.7",
+    "@types/unist": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.18.20",
+    "esbuild-plugin-solid": "^0.5.0",
+    "eslint": "^8.52.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-no-only-tests": "^3.1.0",
+    "jsdom": "^22.1.0",
+    "prettier": "3.0.0",
+    "solid-js": "^1.8.5",
+    "tsup": "^7.2.0",
+    "tsup-preset-solid": "^2.1.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-solid": "^2.7.2",
+    "vitest": "^0.33.0"
+  },
+  "packageManager": "pnpm@8.6.0",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8.6.0"
   }
 }
