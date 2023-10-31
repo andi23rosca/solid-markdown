@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { visit } from "unist-util-visit";
 import type { Element as HElement, Root as HRoot } from "hast";
 import type { Plugin } from "unified";
