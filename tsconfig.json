@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "isolatedModules": true,
-    "outDir": "./dist",
-    "declaration": true,
-    "emitDeclarationOnly": true
+    "types": [],
+    "baseUrl": "."
   },
-  "include": [
-    "lib"
-  ]
+  "exclude": ["node_modules", "dist", "./dev"]
 }
