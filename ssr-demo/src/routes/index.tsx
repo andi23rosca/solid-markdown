@@ -45,7 +45,9 @@ const App: Component = () => {
 				{md()}
 			</textarea>
 
-			<SolidMarkdown remarkPlugins={[remarkGfm]}>{md()}</SolidMarkdown>
+			<SolidMarkdown renderingStrategy="reconcile" remarkPlugins={[remarkGfm]}>
+				{md()}
+			</SolidMarkdown>
 		</div>
 	);
 };

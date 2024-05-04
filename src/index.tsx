@@ -1,6 +1,12 @@
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import { Component, createMemo, mergeProps } from "solid-js";
+import {
+	Component,
+	createMemo,
+	createRenderEffect,
+	mergeProps,
+} from "solid-js";
+import { createStore, reconcile } from "solid-js/store";
 import { html } from "property-information";
 import { PluggableList, unified } from "unified";
 import { VFile } from "vfile";
@@ -8,9 +14,11 @@ import { Options as TransformOptions } from "./types";
 
 import rehypeFilter, { Options as FilterOptions } from "./rehype-filter";
 import { MarkdownNode, MarkdownRoot } from "./renderer";
+import { Root } from "hast";
 
 type CoreOptions = {
 	children: string;
+	renderingStrategy: "memo" | "reconcile";
 };
 type PluginOptions = {
 	remarkPlugins: PluggableList;
@@ -27,6 +35,7 @@ type SolidMarkdownOptions = CoreOptions &
 	TransformOptions;
 
 const defaults: SolidMarkdownOptions = {
+	renderingStrategy: "memo",
 	remarkPlugins: [],
 	rehypePlugins: [],
 	class: "",
@@ -48,8 +57,9 @@ export const SolidMarkdown: Component<Partial<SolidMarkdownOptions>> = (
 	opts,
 ) => {
 	const options: SolidMarkdownOptions = mergeProps(defaults, opts);
+	const [node, setNode] = createStore<Root>({ type: "root", children: [] });
 
-	const hastNode = createMemo(() => {
+	const generateNode = createMemo(() => {
 		const children = options.children;
 		const processor = unified()
 			.use(remarkParse)
@@ -77,12 +87,18 @@ export const SolidMarkdown: Component<Partial<SolidMarkdownOptions>> = (
 		return hastNode;
 	});
 
+	if (options.renderingStrategy === "reconcile") {
+		createRenderEffect(() => {
+			setNode(reconcile(generateNode()));
+		});
+	}
+
 	return (
 		<>
 			<div class={options.class}>
 				<MarkdownRoot
 					context={{ options, schema: html, listDepth: 0 }}
-					node={hastNode()}
+					node={options.renderingStrategy === "memo" ? generateNode() : node}
 				/>
 			</div>
 		</>
