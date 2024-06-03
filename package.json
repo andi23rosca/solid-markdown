@@ -1,6 +1,6 @@
 {
   "name": "solid-markdown",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Markdown renderer for solid-js",
   "license": "MIT",
   "keywords": [
@@ -47,7 +47,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "browser": {},
+  "browser": "./dist/index.js",
   "exports": {
     "solid": {
       "development": "./dist/dev.jsx",
