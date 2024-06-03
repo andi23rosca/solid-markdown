@@ -2,8 +2,8 @@ import { stringify as commas } from "comma-separated-tokens";
 import type { Root, Element } from "hast";
 import { find } from "property-information";
 import { stringify as spaces } from "space-separated-tokens";
-import { Position } from "unist";
-import { Context } from "./types";
+import type { Position } from "unist";
+import type { Context } from "./types";
 
 export function getInputElement(node: Element | Root): Element | null {
 	let index = -1;
@@ -41,9 +41,8 @@ export function addProperty(
 	const info = find(ctx.schema, prop);
 	let result = value;
 
-
 	if (info.property === "className") {
-		info.property = 'class'
+		info.property = "class";
 	}
 
 	// Ignore nullish and `NaN` values.
@@ -69,9 +68,9 @@ export function flattenPosition(
 	pos:
 		| Position
 		| {
-			start: { line: null; column: null; offset: null };
-			end: { line: null; column: null; offset: null };
-		},
+				start: { line: null; column: null; offset: null };
+				end: { line: null; column: null; offset: null };
+		  },
 ): string {
 	return [
 		pos.start.line,

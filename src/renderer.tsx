@@ -1,5 +1,5 @@
-import { Component, For, Match, Switch, createMemo } from "solid-js";
-import { Context, SolidMarkdownNames } from "./types";
+import { type Component, For, Match, Switch, createMemo, Show } from "solid-js";
+import type { Context, SolidMarkdownNames } from "./types";
 import type { Root, Element, Text } from "hast";
 import { svg } from "property-information";
 import { Dynamic } from "solid-js/web";
@@ -32,12 +32,83 @@ export const MarkdownChildren: Component<{
 					/>
 				</Match>
 				<Match when={child.type === "text" && child.value !== "\n"}>
-					{(child as Text).value}
+					<MarkdownText
+						context={props.context}
+						index={index()}
+						node={child as Text}
+						parent={props.node}
+					/>
 				</Match>
 			</Switch>
 		)}
 	</For>
 );
+
+export const MarkdownText: Component<{
+	context: Context;
+	node: Text;
+	index: number;
+	parent: Element | Root;
+}> = (props) => {
+	const childProps = createMemo(() => {
+		const context = { ...props.context };
+		const options = context.options;
+		const node = props.node;
+		const parent = props.parent;
+
+		const properties: Record<string, unknown> = {};
+
+		// Nodes created by plugins do not have positional info, in which case we use
+		// an object that matches the position interface.
+		const position = node.position || {
+			start: { line: null, column: null, offset: null },
+			end: { line: null, column: null, offset: null },
+		};
+
+		const component =
+			options.components && own.call(options.components, "text")
+				? options.components.text
+				: null;
+		const basic = typeof component === "string"; //|| component === React.Fragment;
+
+		properties.key = [
+			"text",
+			position.start.line,
+			position.start.column,
+			props.index,
+		].join("-");
+
+		// If `sourcePos` is given, pass source information (line/column info from markdown source).
+		if (options.sourcePos) {
+			properties["data-sourcepos"] = flattenPosition(position);
+		}
+
+		if (!basic && options.rawSourcePos) {
+			properties.sourcePosition = node.position;
+		}
+
+		// // If `includeElementIndex` is given, pass node index info to components.
+		// if (!basic && options.includeElementIndex) {
+		// 	properties.index = getElementsBeforeCount(parent, node);
+		// 	properties.siblingCount = getElementsBeforeCount(parent);
+		// }
+
+		if (!basic) {
+			properties.node = node;
+		}
+
+		return { properties, context, component };
+	});
+
+	return (
+		<Show when={childProps().component} fallback={props.node.value}>
+			<Dynamic
+				component={childProps().component || "span"}
+				{...childProps().properties}
+			/>
+		</Show>
+	);
+};
 
 export const MarkdownNode: Component<{
 	context: Context;
@@ -110,7 +181,7 @@ export const MarkdownNode: Component<{
 							typeof properties.title === "string"
 								? properties.title
 								: undefined,
-					  )
+						)
 					: options.linkTarget;
 		}
 

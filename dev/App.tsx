@@ -1,8 +1,14 @@
 // solid-refresh
-import { createSignal, type Component, createEffect, onMount } from "solid-js";
+import {
+	createSignal,
+	type Component,
+	createEffect,
+	onMount,
+	For,
+} from "solid-js";
 import remarkGfm from "remark-gfm";
 import { SolidMarkdown } from "../src";
-import { Components } from "src/types";
+import type { Components } from "src/types";
 const initial = `# 🚀 solid-markdown demo
 
 Edit any of the text and see it rendered in real time.
@@ -49,6 +55,7 @@ const App: Component = () => {
 				remarkPlugins={[remarkGfm]}
 				components={{
 					h2: Heading2,
+					text: Text,
 				}}
 			>
 				{md()}
@@ -60,5 +67,9 @@ const App: Component = () => {
 const Heading2: Components["h2"] = (props) => {
 	return <p style={{ color: "red" }}>{props.children}</p>;
 };
+
+const Text: Components["text"] = (props) => (
+	<For each={[...props.node.value]}>{(char) => <span>{char}</span>}</For>
+);
 
 export default App;

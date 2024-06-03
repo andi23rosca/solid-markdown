@@ -1,20 +1,20 @@
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import {
-	Component,
+	type Component,
 	createMemo,
 	createRenderEffect,
 	mergeProps,
 } from "solid-js";
 import { createStore, reconcile } from "solid-js/store";
 import { html } from "property-information";
-import { PluggableList, unified } from "unified";
+import { type PluggableList, unified } from "unified";
 import { VFile } from "vfile";
-import { Options as TransformOptions } from "./types";
+import type { Options as TransformOptions } from "./types";
 
-import rehypeFilter, { Options as FilterOptions } from "./rehype-filter";
+import rehypeFilter, { type Options as FilterOptions } from "./rehype-filter";
 import { MarkdownNode, MarkdownRoot } from "./renderer";
-import { Root } from "hast";
+import type { Root } from "hast";
 
 type CoreOptions = {
 	children: string;
@@ -28,11 +28,13 @@ type LayoutOptions = {
 	class: string;
 };
 
-type SolidMarkdownOptions = CoreOptions &
+export type SolidMarkdownOptions = CoreOptions &
 	PluginOptions &
 	LayoutOptions &
 	FilterOptions &
 	TransformOptions;
+
+export type SolidMarkdownComponents = TransformOptions["components"];
 
 const defaults: SolidMarkdownOptions = {
 	renderingStrategy: "memo",

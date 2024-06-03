@@ -1,7 +1,7 @@
-import { Component, JSX } from "solid-js";
+import type { Component, JSX } from "solid-js";
 import type { Position } from "unist";
-import type { Element, ElementContent } from "hast";
-import { Schema } from "property-information";
+import type { Element, ElementContent, Text } from "hast";
+import type { Schema } from "property-information";
 
 /* File for types which are not handled correctly in JSDoc mode */
 
@@ -98,10 +98,15 @@ type SpecialComponents = {
 	tr: TableRowComponent | SolidMarkdownNames;
 	ul: UnorderedListComponent | SolidMarkdownNames;
 };
-export type Components = Partial<
-	Omit<NormalComponents, keyof SpecialComponents>
-> &
-	Partial<SpecialComponents>;
+export type Components = Omit<
+	Partial<Omit<NormalComponents, keyof SpecialComponents>> &
+		Partial<SpecialComponents>,
+	"text"
+> & {
+	text?: Component<{
+		node: Text;
+	}>;
+};
 
 export type Options = {
 	sourcePos: boolean;

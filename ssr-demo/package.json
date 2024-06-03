@@ -18,7 +18,7 @@
     "@solidjs/meta": "^0.28.6",
     "@solidjs/router": "^0.8.3",
     "solid-js": "^1.8.3",
-    "solid-markdown": "2.0.2",
+    "solid-markdown": "2.0.3",
     "solid-start": "^0.3.8"
   },
   "engines": {

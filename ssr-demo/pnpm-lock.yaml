@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.8.3
     version: 1.8.3
   solid-markdown:
-    specifier: 2.0.2
-    version: 2.0.2(solid-js@1.8.3)
+    specifier: 2.0.3
+    version: 2.0.3(solid-js@1.8.3)
   solid-start:
     specifier: ^0.3.8
     version: 0.3.8(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.8.3)(solid-start-node@0.3.8)(vite@4.4.9)
@@ -1699,13 +1699,13 @@ packages:
   /@types/hast@3.0.4:
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
     dependencies:
-      '@types/unist': 2.0.9
+      '@types/unist': 3.0.2
     dev: false
 
   /@types/mdast@4.0.3:
     resolution: {integrity: sha512-LsjtqsyF+d2/yFOYaN22dHZI1Cpwkrj+g06G8+qtUKlhovPW89YhqSnfKtMbkgmEtYpH2gydRNULd6y8mciAFg==}
     dependencies:
-      '@types/unist': 2.0.9
+      '@types/unist': 3.0.2
     dev: false
 
   /@types/ms@0.7.33:
@@ -1716,10 +1716,6 @@ packages:
 
   /@types/resolve@1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
-
-  /@types/unist@2.0.9:
-    resolution: {integrity: sha512-zC0iXxAv1C1ERURduJueYzkzZ2zaGyc+P2c95hgkikHPr3z8EdUZOlgEQ5X0DRmwDZn+hekycQnoeiiRVrmilQ==}
-    dev: false
 
   /@types/unist@3.0.2:
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
@@ -3477,8 +3473,8 @@ packages:
       csstype: 3.1.2
       seroval: 0.11.6
 
-  /solid-markdown@2.0.2(solid-js@1.8.3):
-    resolution: {integrity: sha512-buu3L65EoKn29nh66h1H6IiXc1HjX+o9yYjSF18CSbHo5vdz5dBfvJAFBgKOwrAh4iLRebKXhzKwPU0LMK+qNw==}
+  /solid-markdown@2.0.3(solid-js@1.8.3):
+    resolution: {integrity: sha512-Oz2adRPrt0Fmw6Qvj/gqbK8Eh9pJqHG/FfNcE1DTMwrGBQrqgV2+bhwr6epCLv2H4GqMDj5MD6jbmegTHtlmGg==}
     engines: {node: '>=18', pnpm: '>=8.6.0'}
     peerDependencies:
       solid-js: ^1.6.0
