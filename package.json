@@ -1,6 +1,6 @@
 {
   "name": "solid-markdown",
-  "version": "2.0.7",
+  "version": "2.0.9",
   "description": "Markdown renderer for solid-js",
   "license": "MIT",
   "keywords": [
@@ -47,7 +47,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "browser": "./dist/index.js",
+  "browser": {},
   "exports": {
     "solid": {
       "development": "./dist/dev.jsx",
@@ -68,6 +68,9 @@
   "scripts": {
     "dev": "vite serve dev",
     "build": "tsup",
+    "test": "concurrently pnpm:test:*",
+    "test:client": "vitest",
+    "test:ssr": "pnpm run test:client --mode ssr",
     "prepublishOnly": "pnpm build",
     "format": "prettier --ignore-path .gitignore -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"dev/**/*.{js,ts,json,css,tsx,jsx}\"",
     "lint": "concurrently pnpm:lint:*",
@@ -105,8 +108,8 @@
     "jsdom": "^24.0.0",
     "prettier": "3.2.5",
     "solid-js": "^1.8.17",
-    "tsup": "^8.0.2",
-    "tsup-preset-solid": "^2.2.0",
+    "tsup": "^7.2.0",
+    "tsup-preset-solid": "^2.1.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
     "vite-plugin-solid": "^2.10.2",

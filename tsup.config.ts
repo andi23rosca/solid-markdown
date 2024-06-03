@@ -37,7 +37,7 @@ export default defineConfig((config) => {
 		);
 
 		// will update ./package.json with the correct export fields
-		// preset.writePackageJson(package_fields);
+		preset.writePackageJson(package_fields);
 	}
 
 	return preset.generateTsupOptions(parsed_options);
