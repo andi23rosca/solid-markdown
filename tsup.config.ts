@@ -10,12 +10,13 @@ const preset_options: preset.PresetOptions = {
 			entry: "src/index.tsx",
 			// will generate a separate development entry
 			dev_entry: true,
+			server_entry: true,
 		},
 	],
 	// Set to `true` to remove all `console.*` calls and `debugger` statements in prod builds
 	drop_console: true,
 	// Set to `true` to generate a CommonJS build alongside ESM
-	// cjs: true,
+	cjs: true,
 };
 
 const CI =
