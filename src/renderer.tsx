@@ -56,7 +56,9 @@ export const MarkdownText: Component<{
 		const node = props.node;
 		const parent = props.parent;
 
-		const properties: Record<string, unknown> = {};
+		const properties: Record<string, unknown> = {
+			parent,
+		};
 
 		// Nodes created by plugins do not have positional info, in which case we use
 		// an object that matches the position interface.
