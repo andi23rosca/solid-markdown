@@ -1,6 +1,6 @@
 {
   "name": "solid-markdown",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Markdown renderer for solid-js",
   "license": "MIT",
   "keywords": [
@@ -44,71 +44,11 @@
   "private": false,
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/server.cjs",
-  "module": "./dist/server.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "browser": {
-    "./dist/server.js": "./dist/index.js",
-    "./dist/server.cjs": "./dist/index.cjs"
-  },
+  "browser": {},
   "exports": {
-    "worker": {
-      "solid": "./dist/server.jsx",
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/server.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/server.cjs"
-      }
-    },
-    "browser": {
-      "solid": {
-        "development": "./dist/dev.jsx",
-        "import": "./dist/index.jsx"
-      },
-      "development": {
-        "import": {
-          "types": "./dist/index.d.ts",
-          "default": "./dist/dev.js"
-        },
-        "require": {
-          "types": "./dist/index.d.cts",
-          "default": "./dist/dev.cjs"
-        }
-      },
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "deno": {
-      "solid": "./dist/server.jsx",
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/server.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/server.cjs"
-      }
-    },
-    "node": {
-      "solid": "./dist/server.jsx",
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/server.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/server.cjs"
-      }
-    },
     "solid": {
       "development": "./dist/dev.jsx",
       "import": "./dist/index.jsx"
@@ -117,19 +57,11 @@
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/dev.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/dev.cjs"
       }
     },
     "import": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
     }
   },
   "typesVersions": {},
@@ -148,40 +80,40 @@
   },
   "dependencies": {
     "comma-separated-tokens": "^2.0.3",
-    "property-information": "^6.5.0",
-    "remark-gfm": "^4.0.0",
-    "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.1.0",
+    "property-information": "^6.3.0",
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.2",
+    "remark-rehype": "^10.1.0",
     "space-separated-tokens": "^2.0.2",
-    "style-to-object": "^1.0.6",
-    "unified": "^11.0.4",
-    "unist-util-visit": "^5.0.0",
-    "vfile": "^6.0.1"
+    "style-to-object": "^0.3.0",
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.2",
+    "vfile": "^5.3.7"
   },
   "peerDependencies": {
     "solid-js": "^1.6.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.7.2",
-    "@types/hast": "^3.0.4",
-    "@types/unist": "^3.0.2",
-    "@typescript-eslint/eslint-plugin": "^7.8.0",
-    "@typescript-eslint/parser": "^7.8.0",
+    "@biomejs/biome": "^1.3.1",
+    "@types/hast": "^2.3.7",
+    "@types/unist": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
     "concurrently": "^8.2.2",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.18.20",
     "esbuild-plugin-solid": "^0.5.0",
-    "eslint": "^9.2.0",
+    "eslint": "^8.52.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-no-only-tests": "^3.1.0",
-    "jsdom": "^24.0.0",
-    "prettier": "3.2.5",
-    "solid-js": "^1.8.17",
+    "jsdom": "^22.1.0",
+    "prettier": "3.0.0",
+    "solid-js": "^1.8.5",
     "tsup": "^7.2.0",
     "tsup-preset-solid": "^2.1.0",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.11",
-    "vite-plugin-solid": "^2.10.2",
-    "vitest": "^1.6.0"
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-solid": "^2.7.2",
+    "vitest": "^0.33.0"
   },
   "packageManager": "pnpm@8.6.0",
   "engines": {
