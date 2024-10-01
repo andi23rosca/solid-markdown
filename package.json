@@ -87,7 +87,7 @@
     "style-to-object": "^0.3.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^4.1.2",
-    "vfile": "^5.3.7"
+    "vfile": "^6.0.3"
   },
   "peerDependencies": {
     "solid-js": "^1.6.0"
