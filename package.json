@@ -81,12 +81,11 @@
   "dependencies": {
     "comma-separated-tokens": "^2.0.3",
     "property-information": "^6.3.0",
-    "remark-gfm": "^3.0.1",
-    "remark-parse": "^10.0.2",
-    "remark-rehype": "^10.1.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.1",
     "space-separated-tokens": "^2.0.2",
     "style-to-object": "^0.3.0",
-    "unified": "^10.1.2",
+    "unified": "^11.0.5",
     "unist-util-visit": "^4.1.2",
     "vfile": "^5.3.7"
   },
@@ -107,6 +106,7 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "jsdom": "^22.1.0",
     "prettier": "3.0.0",
+    "remark-gfm": "^4.0.0",
     "solid-js": "^1.8.5",
     "tsup": "^7.2.0",
     "tsup-preset-solid": "^2.1.0",
