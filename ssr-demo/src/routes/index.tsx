@@ -1,5 +1,5 @@
 // solid-refresh
-import { createSignal, type Component, createEffect } from "solid-js";
+import { createSignal, type Component } from "solid-js";
 import remarkGfm from "remark-gfm";
 import { SolidMarkdown } from "solid-markdown";
 
