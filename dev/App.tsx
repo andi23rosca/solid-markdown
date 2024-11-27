@@ -2,8 +2,6 @@
 import {
 	createSignal,
 	type Component,
-	createEffect,
-	onMount,
 	For,
 } from "solid-js";
 import remarkGfm from "remark-gfm";
