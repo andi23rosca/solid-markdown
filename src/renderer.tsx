@@ -11,11 +11,6 @@ import {
 } from "./utils";
 const own = {}.hasOwnProperty;
 
-export const MarkdownRoot: Component<{
-	context: Context;
-	node: Root;
-}> = (props) => <MarkdownChildren node={props.node} context={props.context} />;
-
 export const MarkdownChildren: Component<{
 	context: Context;
 	node: Element | Root;
@@ -51,8 +46,7 @@ export const MarkdownText: Component<{
 	parent: Element | Root;
 }> = (props) => {
 	const childProps = createMemo(() => {
-		const context = { ...props.context };
-		const options = context.options;
+		const options = props.context.options;
 		const node = props.node;
 		const parent = props.parent;
 
@@ -99,7 +93,7 @@ export const MarkdownText: Component<{
 			properties.node = node;
 		}
 
-		return { properties, context, component };
+		return { properties, component };
 	});
 
 	return (

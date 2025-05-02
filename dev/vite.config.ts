@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
+// @ts-ignore
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   resolve: {
@@ -8,6 +10,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    tailwindcss(),
     solidPlugin(),
     {
       name: 'Reaplace env variables',
