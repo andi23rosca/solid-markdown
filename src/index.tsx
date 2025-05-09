@@ -4,11 +4,9 @@ import {
 	type Component,
 	createMemo,
 	createRenderEffect,
-	createSignal,
 	mergeProps,
-	on,
 } from "solid-js";
-import { createStore, produce, reconcile } from "solid-js/store";
+import { createStore, produce, reconcile, unwrap } from "solid-js/store";
 import { html } from "property-information";
 import { type PluggableList, unified } from "unified";
 import { VFile } from "vfile";
@@ -16,7 +14,7 @@ import type { Options as TransformOptions } from "./types";
 
 import rehypeFilter, { type Options as FilterOptions } from "./rehype-filter";
 import { MarkdownChildren } from "./renderer";
-import type { ElementContent, Root, RootContent } from "hast";
+import type { ElementContent, Root, RootContent, Text } from "hast";
 
 type CoreOptions = {
 	children: string;
@@ -43,6 +41,7 @@ enum DiffResult {
 	RemoveRestOfChildrenFromParent = 1,
 	AddRestOfChildrenToParent = 2,
 	ReplaceParent = 3,
+	HandleTextDiff = 4,
 }
 
 const defaults: SolidMarkdownOptions = {
@@ -167,59 +166,115 @@ export const SolidMarkdownStreaming: Component<
 
 			setNode(
 				produce((root) => {
-					console.log(hastNode);
 					if (root.doc.children.length > hastNode.children.length) {
 						root.doc = hastNode;
 						return;
 					}
+
+					const isLastTextNode = (node: RootContent) => {
+						// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+						let next: any = hastNode;
+						while (next) {
+							if ("children" in next && next.children.at(-1)) {
+								next = next.children.at(-1);
+							} else {
+								break;
+							}
+						}
+						return next === node;
+					};
 
 					root.doc.position = hastNode.position;
 
 					const process = (
 						node: ElementContent | RootContent | Root | undefined,
 						old: ElementContent | RootContent | Root | undefined,
-					): DiffResult => {
+						// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+					): [DiffResult, meta: undefined | Record<string, any>] => {
 						if (!node && old) {
-							return DiffResult.RemoveRestOfChildrenFromParent;
+							return [DiffResult.RemoveRestOfChildrenFromParent, undefined];
 						}
 						if (node && !old) {
-							return DiffResult.AddRestOfChildrenToParent;
+							return [DiffResult.AddRestOfChildrenToParent, undefined];
 						}
 
 						if (!node || !old) {
-							return DiffResult.Nothing;
+							return [DiffResult.Nothing, undefined];
 						}
 
 						if (nodeEquality(node, old)) {
-							return DiffResult.Nothing;
+							return [DiffResult.Nothing, undefined];
 						}
 
 						if (node.type !== old.type) {
 							overrideObjectKeepReference(old, node);
-							return DiffResult.Nothing;
+							return [DiffResult.Nothing, undefined];
 						}
 
-						old.type = node.type;
-						old.data = node.data;
-						old.position = node.position;
+						if (node.type !== "text" && old.type !== "text") {
+							old.type = node.type;
+							old.data = node.data;
+							old.position = node.position;
+							//@ts-ignore
+							old.properties = node.properties;
+						}
 
 						if (
 							(node.type === "element" && old.type === "element") ||
 							(node.type === "root" && old.type === "root")
 						) {
 							for (let i = 0; i < node.children.length; i++) {
-								const result = process(node.children[i], old.children[i]);
+								const [result, meta] = process(
+									node.children[i],
+									old.children[i],
+								);
 								switch (result) {
+									case DiffResult.HandleTextDiff: {
+										const n = node.children[i] as Text;
+										const lastOld = old.children.at(-1) as Text;
+										if (
+											lastOld.position?.end.offset === undefined ||
+											n.position?.end.offset === undefined
+										) {
+											lastOld.value = n.value;
+											lastOld.position = n.position;
+											lastOld.data = n.data;
+											return [DiffResult.Nothing, undefined];
+										}
+
+										if (lastOld.position.end.offset < n.position.end.offset) {
+											const diff = n.value.slice(lastOld.position.end.offset);
+											old.children.push({
+												type: "text",
+												value: diff,
+												position: {
+													...n.position,
+													start: {
+														...n.position.start,
+														offset: lastOld.position.end.offset,
+													},
+												},
+												data: n.data,
+											});
+											return [DiffResult.Nothing, undefined];
+										}
+
+										lastOld.value = n.value;
+										lastOld.position = n.position;
+										lastOld.data = n.data;
+										return [DiffResult.Nothing, undefined];
+									}
+
 									case DiffResult.RemoveRestOfChildrenFromParent:
 										old.children = old.children.slice(i);
-										return DiffResult.Nothing;
+										return [DiffResult.Nothing, undefined];
 									case DiffResult.AddRestOfChildrenToParent:
 										// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 										old.children.push(...(node.children.slice(i) as any));
-										return DiffResult.Nothing;
+										return [DiffResult.Nothing, undefined];
 									case DiffResult.ReplaceParent:
 										overrideObjectKeepReference(old, node);
-										return DiffResult.Nothing;
+										return [DiffResult.Nothing, undefined];
 									case DiffResult.Nothing:
 										continue;
 								}
@@ -227,25 +282,20 @@ export const SolidMarkdownStreaming: Component<
 						}
 
 						if (node.type === "text" && old.type === "text") {
+							if (isLastTextNode(node)) {
+								return [DiffResult.HandleTextDiff, { node: node }];
+							}
+
 							old.value = node.value;
+							old.position = node.position;
 							old.data = node.data;
-							return DiffResult.Nothing;
+							return [DiffResult.Nothing, undefined];
 						}
 
-						return DiffResult.Nothing;
+						return [DiffResult.Nothing, undefined];
 					};
 
 					process(hastNode, root.doc);
-					// for (let i = 0; i < hastNode.children.length; i++) {
-					// 	const node = hastNode.children[i] as RootContent;
-					// 	const old = root.doc.children[i];
-
-					// 	if (old && nodeEquality(node, old)) {
-					// 		continue;
-					// 	}
-
-					// 	root.doc.children[i] = node;
-					// }
 				}),
 			);
 		});

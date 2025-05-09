@@ -61,6 +61,10 @@ export const MarkdownText: Component<{
 			end: { line: null, column: null, offset: null },
 		};
 
+		if (typeof node.data?.in === "number") {
+			properties.in = node.data.in;
+		}
+
 		const component =
 			options.components && own.call(options.components, "text")
 				? options.components.text
@@ -97,7 +101,10 @@ export const MarkdownText: Component<{
 	});
 
 	return (
-		<Show when={childProps().component} fallback={props.node.value}>
+		<Show
+			when={childProps().component}
+			fallback={<span class="animate-fade-in">{props.node.value}</span>}
+		>
 			<Dynamic
 				component={childProps().component || "span"}
 				{...childProps().properties}
