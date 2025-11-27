@@ -1,12 +1,9 @@
 // solid-refresh
-import {
-	createSignal,
-	type Component,
-	For,
-} from "solid-js";
+import { createSignal, type Component, For, Show, onMount } from "solid-js";
 import remarkGfm from "remark-gfm";
-import { SolidMarkdown } from "../src";
-import type { Components } from "src/types";
+import { SolidMarkdown } from "../../../src";
+import type { Components } from "../../../src/types";
+
 const initial = `# 🚀 solid-markdown demo
 
 Edit any of the text and see it rendered in real time.
@@ -37,28 +34,33 @@ const App: Component = () => {
 	const [md, setMd] = createSignal(initial);
 
 	return (
-		<div class="container">
-			<textarea
-				rows={md().split(/\r\n|\r|\n/).length + 2}
-				class="editor"
-				onInput={(e) => {
-					setMd(e.currentTarget.value);
-				}}
-				contentEditable
-			>
-				{md()}
-			</textarea>
+		<>
+			<h1>Test</h1>
+			<Show when={true}>
+				<div class="container">
+					<textarea
+						rows={md().split(/\r\n|\r|\n/).length + 2}
+						class="editor"
+						onInput={(e) => {
+							setMd(e.currentTarget.value);
+						}}
+						contentEditable
+					>
+						{md()}
+					</textarea>
 
-			<SolidMarkdown
-				remarkPlugins={[remarkGfm]}
-				components={{
-					h2: Heading2,
-					text: Text,
-				}}
-			>
-				{md()}
-			</SolidMarkdown>
-		</div>
+					<SolidMarkdown
+						remarkPlugins={[remarkGfm]}
+						components={{
+							h2: Heading2,
+							text: Text,
+						}}
+					>
+						{md()}
+					</SolidMarkdown>
+				</div>
+			</Show>
+		</>
 	);
 };
 
