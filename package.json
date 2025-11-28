@@ -1,6 +1,6 @@
 {
   "name": "solid-markdown",
-  "version": "2.0.14",
+  "version": "2.1.0",
   "description": "Markdown renderer for solid-js",
   "license": "MIT",
   "keywords": [
@@ -44,11 +44,50 @@
   "private": false,
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist/server.js",
+  "module": "./dist/server.js",
   "types": "./dist/index.d.ts",
-  "browser": {},
+  "browser": {
+    "./dist/server.js": "./dist/index.js"
+  },
   "exports": {
+    "worker": {
+      "solid": "./dist/server.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      }
+    },
+    "browser": {
+      "solid": {
+        "development": "./dist/dev.jsx",
+        "import": "./dist/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "deno": {
+      "solid": "./dist/server.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      }
+    },
+    "node": {
+      "solid": "./dist/server.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      }
+    },
     "solid": {
       "development": "./dist/dev.jsx",
       "import": "./dist/index.jsx"
