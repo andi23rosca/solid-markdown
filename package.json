@@ -147,7 +147,7 @@
     "prettier": "3.0.0",
     "remark-gfm": "^4.0.0",
     "solid-js": "^1.9.10",
-    "tsup": "^7.2.0",
+    "tsup": "^8.5.1",
     "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.2.2",
     "vite": "^7.2.4",
